@@ -34,16 +34,14 @@
 
         <section>
             <!-- 
-              This is the FormSubmit form.
-              You do NOT need to create an account.
+              This form now points to your Formspree endpoint.
+              The old FormSubmit hidden inputs have been removed.
             -->
-            <form action="https://api.web3forms.com/submit" method="POST">
-                <input type="hidden" name="access_key" value="47d51c7f-803e-4526-ac71-601b0766ddae">
-                <!-- 
-                  *** STEP 1: EDIT THIS LINE ^ ***
-                  Replace "your-email@here.com" with YOUR actual email address.
-                -->
-
+            <form 
+              action="https://formspree.io/f/xqavkzev" 
+              method="POST" 
+              class="contact-form">
+                
                 <div class="form-group">
                     <label for="name">Your Name</label>
                     <input type="text" id="name" name="name" required>
@@ -64,12 +62,10 @@
                     <textarea id="message" name="message" rows="6" required></textarea>
                 </div>
                 
-                 
-                
-                <input type="hidden" name="_next" value="https://github.com/archuthanm/Quant-Portfolio/blob/main/thank-you.html">
-
-       
-                <input type="hidden" name="_captcha" value="false">
+                <!-- 
+                  Formspree doesn't need the _next or _captcha fields,
+                  so they have been removed.
+                -->
 
                 <button type="submit" class="form-button">Send Message</button>
             </form>
