@@ -32,13 +32,38 @@
             </p>
         </section>
 
-        <!-- 
-          THIS SECTION IS NEW.
-          Your old <form> is gone. This is where you will paste your
-          Google Forms embed code.
-        -->
-        <section class="google-form-embed">
-              <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScsQdqfWiO5ZtWLg9uAxknosgUBZOCeP7V-CcotOcXxik9wRA/viewform?embedded=true" width="640" height="824" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>" width="100%" height="812" ...Loading...</iframe>    
+        <!-- Netlify Form -->
+        <section class="contact-form-section">
+            <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                
+                <!-- Hidden input for Netlify -->
+                <input type="hidden" name="form-name" value="contact">
+                <p style="display:none">
+                    <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+                </p>
+
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+                </div>
+
+                <button type="submit" class="form-button">Send Message</button>
+            </form>
         </section>
     </main>
 
@@ -49,7 +74,7 @@
                 <a href="https://www.linkedin.com/in/archuthan-mohanathasan-63187424b/" target="_blank">LinkedIn</a>
                 <a href="resume.pdf" target="_blank">Resume (PDF)</a>
             </div>
-            <p>&copy; 2025 Archuthan Mohanathasan. All rights reserved.</p>
+            <p>© 2025 Archuthan Mohanathasan. All rights reserved.</p>
         </div>
     </footer>
 
