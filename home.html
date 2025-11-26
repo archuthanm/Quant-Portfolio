@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archuthan Mohanathasan - Quantitative Finance Portfolio</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="cursor"></div>
+    <nav class="container">
+        <a href="home.html" class="nav-logo">Archuthan Mohanathasan</a>
+        <ul>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" class="nav-contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero container">
+        <h1>From <span class="accent">CS theory</span> to <span class="accent">market models.</span></h1>
+        <p class="hero-subhead">
+            A Computer Science student (King's College London) with a passion for quantitative finance.
+            Here's my journey of building and testing practical projects.
+        </p>
+        <a href="projects.html" class="cta-button">Check Out My Work</a>
+    </header>
+
+    <main class="container">
+        
+
+        <section class="aspirations-section">
+            <div class="container">
+                <h2>Research & Aspirations</h2>
+                <p class="skills-subhead">
+                    I'm driven to apply rigorous computational methods to financial markets. 
+                    These are the topics I'm actively exploring.
+                </p>
+        
+                <div class="aspirations-grid">
+        
+                    <div class="aspiration-card">
+                        <h3>Quantitative Risk & Portfolio Theory</h3>
+                        <p>
+                            How do you "invest sensibly" in a mathematical sense? I'm fascinated by 
+                            Modern Portfolio Theory (MPT) and the application of maths and programming to 
+                            quantify and minimize risk.
+                        </p>
+                    </div>
+        
+                    <div class="aspiration-card">
+                        <h3>Algorithmic Strategy & Market Analysis</h3>
+                        <p>
+                            I'm exploring how to apply Python and time-series analysis to 
+                            find statistical patterns in stock market data. My goal is to
+                            move from theory to application by building and testing data-driven strategies.
+                        </p>
+                    </div>
+        
+                    <div class="aspiration-card">
+                        <h3>Emerging Assets & Volatility</h3>
+                        <p>
+                            Assets like cryptocurrencies present a unique challenge. I'm researching 
+                            how they fit into a diversified portfolio and how advanced 
+                            models can be used to understand their extreme volatility and risk profiles.
+                        </p>
+                    </div>
+        
+                </div>
+            </div>
+        </section>
+
+        <section class="skills-section">
+            <div class="container">
+                <h2>Skills</h2>
+                <p class="skills-subhead">Familiar Technologies and Concepts</p>
+        
+                <div class="skills-grid">
+                    
+                    <div class="skill-category">
+                        <h3>Languages</h3>
+                        <ul>
+                            <li>Python</li>
+                            <li>C++</li>
+                            <li>SQL</li>
+                            <li>Java</li>
+                            <li>DJango</li>
+                            <li>HTML/CSS</li>
+                        </ul>
+                    </div>
+        
+                    <div class="skill-category">
+                        <h3>Libraries & Frameworks</h3>
+                        <ul>
+                            <li>NumPy & Pandas</li>
+                            <li>Matplotlib & Seaborn</li>
+                            <li>SciPy & Scikit-learn</li>
+                        </ul>
+                    </div>
+        
+                    <div class="skill-category">
+                        <h3>Concepts & Methods</h3>
+                        <ul>
+                            <li>Monte Carlo Simulation</li>
+                            <li>Black-Scholes Model</li>
+                            <li>Statistical Arbitrage</li>
+                            <li>Natural Language Processing (NLP)</li>
+                        </ul>
+                    </div>
+        
+                </div>
+            </div>
+        </section>
+
+        
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-links">
+                <a href="https://github.com/archuthanm" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/archuthan-mohanathasan-63187424b/" target="_blank">LinkedIn</a>
+                <a href="resume.pdf" target="_blank">Resume (PDF)</a>
+            </div>
+            <p>&copy; 2025 Archuthan Mohanathasan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("mousemove", (e) => {
+          const cursor = document.getElementById("cursor");
+          cursor.style.left = e.clientX + "px";
+          cursor.style.top = e.clientY + "px";
+        });
+    </script>
+
+</body>
+</html>

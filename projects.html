@@ -11,9 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-
+    <div id="cursor"></div>
     <nav class="container">
-        <a href="index.html" class="nav-logo">Archuthan Mohanathasan</a>
+        <a href="home.html" class="nav-logo">Archuthan Mohanathasan</a>
         <ul>
             <li><a href="projects.html">Projects</a></li>
             <li><a href="about.html">About</a></li>
@@ -37,10 +37,35 @@
                     <a href="options-pricing-research.html">View Research &rarr;</a>
                 </article>
 
-                </div>
+            </div>
         </section>
 
-    </main>
+        <section id="in-progress-projects">
+            <h2>What I'm Building Next</h2>
+            <div class="projects-grid">
+                
+                <article class="project-card">
+                    <span class="project-tag">In Development / Python / FastAPI / React</span>
+                    <h3>Real-Time Market Data Stream</h3>
+                    <p>
+                        A full-stack application to stream live market data from a Python API (using FastAPI and WebSockets) to a dashboard frontend built in React.
+                    </p>
+                    <a href="https://github.com/archuthanm" target="_blank">View on GitHub &rarr;</a>
+                </article>
+
+                <article class="project-card">
+                    <span class="project-tag">In Development / Jupyter / Pandas / Scikit-learn</span>
+                    <h3>Volatility Smile Analysis</h3>
+                    <p>
+                        A quantitative analysis of historical options data to model and predict the behavior of the volatility smile using machine learning techniques.
+                    </p>
+                    <a href="https://github.com/archuthanm" target="_blank">View on GitHub &rarr;</a>
+                </article>
+
+            </div>
+        </section>
+
+        </main>
 
     <footer>
         <div class="container footer-content">
@@ -52,6 +77,14 @@
             <p>&copy; 2025 Archuthan Mohanathasan. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener("mousemove", (e) => {
+          const cursor = document.getElementById("cursor");
+          cursor.style.left = e.clientX + "px";
+          cursor.style.top = e.clientY + "px";
+        });
+    </script>
 
 </body>
 </html>

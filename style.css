@@ -770,6 +770,70 @@ main {
     flex-grow: 1;
 }
 
-/* --- 14. GOOGLE FORM STYLES --- */
 
 
+/* ========== LOADING SCREEN ========== */
+
+#loader {
+    position: fixed;
+    inset: 0;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #ccc;
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+
+/* ===== Candlestick Loader ===== */
+
+#loader {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    
+    /* --- THIS IS THE FIX --- */
+    /* Use flexbox to control the layout */
+    display: flex;
+    
+    /* Stack children vertically (candles on top, text on bottom) */
+    flex-direction: column; 
+    
+    /* Center vertically */
+    justify-content: center; 
+    
+    /* Center horizontally */
+    align-items: center; 
+    
+    /* Tighter grouping (I reduced this from 35px) */
+    gap: 25px; 
+    
+    z-index: 9999;
+}
+
+/* === Custom Neon Cursor === */
+#cursor {
+    position: fixed;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(0, 255, 135, 0.7); /* brighter fill */
+    box-shadow: 0 0 20px #00ff87, 0 0 40px #00ff87, 0 0 60px #00ff87; /* stronger glow */
+    pointer-events: none;
+    mix-blend-mode: screen;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+  }
