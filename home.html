@@ -23,7 +23,8 @@
     </nav>
 
     <header class="hero container">
-        <h1>From <span class="accent">CS theory</span> to <span class="accent">market models.</span></h1>
+        <h1 id="my-typewriter-h1"></h1>
+
         <p class="hero-subhead">
             A Computer Science student (King's College London) with a passion for quantitative finance.
             Here's my journey of building and testing practical projects.
@@ -131,13 +132,43 @@
         </div>
     </footer>
 
+    <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+
     <script>
+        
+        // Your original cursor code
         document.addEventListener("mousemove", (e) => {
           const cursor = document.getElementById("cursor");
           cursor.style.left = e.clientX + "px";
           cursor.style.top = e.clientY + "px";
         });
-    </script>
 
+        // The new TypeIt code
+        document.addEventListener('DOMContentLoaded', function () {
+            new TypeIt("#my-typewriter-h1", {
+                strings: [
+                  'From <span class="accent">CS theory</span> to <span class="accent">market models.</span>'
+                ],
+                speed: 75,
+                waitUntilVisible: true,
+                cursorChar: "|", // The blinking character
+                cursor: {
+                  // Makes the cursor blink orange
+                  animation: {
+                    frames: [
+                      { value: "transparent" },
+                      { value: "orange" },
+                      { value: "transparent" }
+                    ],
+                    options: {
+                      duration: 750,
+                      iterations: Infinity
+                    }
+                  }
+                }
+            }).go(); // Tells it to start
+        });
+
+    </script>
 </body>
 </html>
