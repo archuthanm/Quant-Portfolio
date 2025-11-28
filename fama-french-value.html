@@ -70,7 +70,7 @@
             <div class="project-text-content">
                 <h2>1. The Objective</h2>
                 <p>
-                    This project investigates one of the cornerstones of quantitative finance: the **"value premium"**. The primary goal was to replicate the <strong>'Value' (HML - High Minus Low) factor</strong> as defined by Eugene Fama and Kenneth French. The project involved sourcing and cleaning financial data, constructing value-based portfolios, and analyzing the historical performance of a long-short strategy.
+                    This project investigates one of the cornerstones of quantitative finance: the "value premium". The primary goal was to replicate the <strong>'Value' (HML - High Minus Low) factor</strong> as defined by Eugene Fama and Kenneth French. The project involved sourcing and cleaning financial data, constructing value-based portfolios, and analyzing the historical performance of a long-short strategy.
                 </p>
     
                 <h2>2. Methodology: Portfolio Construction</h2>
@@ -82,7 +82,7 @@
                     The process, executed in a Python script, was as follows:
                 </p>
                 <ul>
-                    <li><strong>Data Sourcing:</strong> Acquired S&P 500 constituent lists and pulled annual `bookValue` and `marketCap` data for each company using the <strong>yfinance</strong> library.</li>
+                    <li><strong>Data Sourcing:</strong> Acquired S&P 500 constituent lists and pulled annual 'bookValue' and 'marketCap' data for each company using the <strong>yfinance</strong> library.</li>
                     <li><strong>Portfolio Sorting:</strong> At the start of each year, all stocks were sorted by their B/M ratio. They were then split into three portfolios: 'High' (top 30% B/M), 'Medium' (middle 40%), and 'Low' (bottom 30% B/M).</li>
                     <li><strong>Factor Calculation:</strong> The monthly returns for the 'High' and 'Low' (equal-weighted) portfolios were calculated. The HML factor is the return of the zero-investment portfolio: <strong>Return(High) - Return(Low)</strong>.</li>
                 </ul>

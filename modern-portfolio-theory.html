@@ -70,7 +70,7 @@
             <div class="project-text-content">
                 <h2>1. The Objective</h2>
                 <p>
-                    This project implements the foundational **Modern Portfolio Theory (MPT)**, developed by Harry Markowitz. The primary goal was to move beyond single-asset analysis and determine how to construct an "optimal" portfolio of multiple assets. The analysis focuses on quantifying the relationship between a portfolio's expected return and its risk (variance), ultimately identifying the set of portfolios known as the **"efficient frontier"**.
+                    This project implements the foundational Modern Portfolio Theory (MPT), developed by Harry Markowitz. The primary goal was to move beyond single-asset analysis and determine how to construct an "optimal" portfolio of multiple assets. The analysis focuses on quantifying the relationship between a portfolio's expected return and its risk (variance), ultimately identifying the set of portfolios known as the "efficient frontier".
                 </p>
     
                 <h2>2. Methodology: Simulation & Optimization</h2>
@@ -80,14 +80,14 @@
                 
                 <ul>
                     <li><strong>Data Sourcing:</strong> Pulled 5+ years of daily historical price data using the `yfinance` library.</li>
-                    <li><strong>Input Calculation:</strong> Calculated the annualized mean return for each asset and the full annualized **covariance matrix** for the portfolio. This matrix is critical as it captures how assets move *in relation to each other*.</li>
+                    <li><strong>Input Calculation:</strong> Calculated the annualized mean return for each asset and the full annualized covariance matrix for the portfolio. This matrix is critical as it captures how assets move *in relation to each other*.</li>
                     <li><strong>Monte Carlo Simulation:</strong> Ran 50,000+ simulations, generating random portfolio weights for each. For each simulation, the overall portfolio return and volatility were calculated and stored.</li>
-                    <li><strong>Optimization:</strong> Used the <strong>`scipy.optimize`** module to solve for the two most critical portfolios: (1) The **Maximum Sharpe Ratio Portfolio** (optimal risk-adjusted return) and (2) The **Minimum Volatility Portfolio**.</li>
+                    <li><strong>Optimization:</strong> Used the <strong>`scipy.optimize` module to solve for the two most critical portfolios: (1) The Maximum Sharpe Ratio Portfolio (optimal risk-adjusted return) and (2) The Minimum Volatility Portfolio.</li>
                 </ul>
     
                 <h2>3. Analysis: The Efficient Frontier</h2>
                 <p>
-                    Plotting the results of the Monte Carlo simulation revealed the characteristic "Markowitz bullet" shape. The outer edge of this shape forms the **efficient frontier**, representing the set of portfolios that offer the highest possible return for any given level of risk.
+                    Plotting the results of the Monte Carlo simulation revealed the characteristic "Markowitz bullet" shape. The outer edge of this shape forms the efficient frontier, representing the set of portfolios that offer the highest possible return for any given level of risk.
                 </p>
                 <p>
                     The analysis confirmed that any portfolio *not* on this frontier is sub-optimal, as a different combination of weights could achieve either a higher return for the same risk or the same return for lower risk. The findings highlight the powerful diversification benefits of combining uncorrelated assets.
