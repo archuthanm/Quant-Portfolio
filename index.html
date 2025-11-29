@@ -12,8 +12,8 @@
       background: #000;
       margin: 0;
       padding: 0;
-      /* Hides the default mouse cursor */
       cursor: none; 
+      overflow: hidden; 
     }
 
     #loader {
@@ -22,21 +22,21 @@
       background: #000;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 25px; /* Reduced gap for a tighter look */
       z-index: 9999;
+      
+      padding: 40px;
+      box-sizing: border-box;
+      gap: 30px; 
     }
 
     .candles {
       display: block;
       position: relative;
-      
-      /* --- NEW: Grid & Chart Window --- */
-      width: 400px;  /* (20w + 18g) * 10 = 380px + 40px padding */
-      height: 500px; /* 300px for chart + 40px padding */
-      padding: 20px;
-      box-sizing: border-box;
+      width: 100%; 
+      flex-grow: 1;
+      min-height: 300px;
+      padding: 20px; 
+      box-sizing: border-box; 
       border: 1px solid #444;
       background-color: #000;
       background-image: 
@@ -54,17 +54,16 @@
           transparent 1px,
           transparent 40px
         );
-      background-size: 40px 40px; /* Size of one grid square */
+      background-size: 40px 40px; 
     }
 
     .candle {
-      width: 20px;
+      width: 20px; 
       position: absolute; 
       transform-origin: bottom center;
       opacity: 0;
       transform: translateY(20px) scaleY(0.6);
-      animation: appearRise 1.4s forwards ease-out;
-      animation-delay: var(--delay);
+      animation: appearRise forwards ease-out;
     }
 
     .green {
@@ -97,39 +96,28 @@
       height: var(--lower-wick, 22px);
     }
 
-    /* Staggered animation delays */
-    .candles .candle:nth-child(1) { --delay: 0.75s; }
-    .candles .candle:nth-child(2) { --delay: 1.5s; }
-    .candles .candle:nth-child(3) { --delay: 2.25s; }
-    .candles .candle:nth-child(4) { --delay: 3s; }
-    .candles .candle:nth-child(5) { --delay: 3.75s; }
-    .candles .candle:nth-child(6) { --delay: 4.5s; }
-    .candles .candle:nth-child(7) { --delay: 5.25s; }
-    .candles .candle:nth-child(8) { --delay: 6s; }
-    .candles .candle:nth-child(9) { --delay: 6.75s; }
-    .candles .candle:nth-child(10){ --delay: 7.5s; }
-
     @keyframes appearRise {
       0%   { opacity: 0; transform: translateY(20px) scaleY(0.6); }
       60%  { opacity: 1; transform: translateY(-4px) scaleY(1.25); }
       100% { opacity: 1; transform: translateY(0) scaleY(1); }
     }
 
-    /* --- NEW: Loading Bar --- */
+    /* --- Loading Bar --- */
     .loader-bar-container {
-      width: 420px; /* Match the chart width */
+      width: 100%; 
       height: 10px;
       background-color: #333;
-      border-radius: 5px;
       overflow: hidden; 
+      flex-shrink: 0; 
+      border-radius: 5px; 
     }
 
     .loader-bar-fill {
       height: 100%;
       width: 0%;
-      background-color: #00ff87; /* Use the "green" from the candles */
+      background-color: #00ff87; 
+      animation: fillBar 7.5s linear forwards; 
       border-radius: 5px;
-      animation: fillBar 8s linear forwards; 
     }
 
     @keyframes fillBar {
@@ -137,62 +125,110 @@
       to   { width: 100%; }
     }
 
-    /* FIX 3: Added CSS for the custom cursor */
     #cursor {
-    position: fixed;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: rgba(0, 255, 135, 0.7); /* brighter fill */
-    box-shadow: 0 0 20px #00ff87, 0 0 40px #00ff87, 0 0 60px #00ff87; /* stronger glow */
-    pointer-events: none;
-    mix-blend-mode: screen;
-    transform: translate(-50%, -50%);
-    z-index: 10000;
+      position: fixed;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0, 255, 135, 0.7); 
+      box-shadow: 0 0 20px #00ff87, 0 0 40px #00ff87, 0 0 60px #00ff87; 
+      pointer-events: none;
+      mix-blend-mode: screen;
+      transform: translate(-50%, -50%);
+      z-index: 10000;
     }
 
   </style>
 
   <script>
-    // Redirect logic
+    // Redirect logic (Unchanged)
     setTimeout(() => {
       window.location.href = "home.html";
-    }, 9000); // FIX 2: Changed to 9.0s to allow animations to finish
+    }, 8500); 
   </script>
 
   <script>
-    // Positions the candles
+    
     document.addEventListener("DOMContentLoaded", () => {
-      const candles = document.querySelectorAll('.candle');
       
-      // UPDATED: Start at 20px to account for the grid padding
-      let currentClosePriceY = 20; 
-      const candleWidth = 20;
-      const candleGap = 18;
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(value, max));
+      }
 
-      candles.forEach((candle, index) => {
-        const height = parseInt(candle.style.height, 10);
-        const isGreen = candle.classList.contains('green');
+      const chart = document.querySelector('.candles'); 
+      const chartWidth = chart.clientWidth;  
+      const chartHeight = chart.clientHeight;
+      
+      // --- Configuration ---
+      const candleWidth = 20; 
+      const candleGap = 18;   
+      const unitSpace = candleWidth + candleGap;
+      const numCandles = Math.floor(chartWidth / unitSpace);
+      const totalAnimationTime = 7500; // 7.5s in ms
+      const delayPerCandle = (numCandles > 0) ? (totalAnimationTime / numCandles) : 0;
+      
+      let currentClosePriceY = 0; // Start at bottom
 
-        // 1. Calculate and set Horizontal (X) position
-        // UPDATED: Start at 20px to account for grid padding
-        const xPosition = 20 + index * (candleWidth + candleGap);
+      /* MODIFIED: New, more volatile pattern */
+      const candlePattern = [
+        { type: 'green', height: 50,  upper: 15, lower: 10 }, // Start low
+        { type: 'green', height: 80,  upper: 10, lower: 10 },
+        { type: 'red',   height: 40,  upper: 20, lower: 5  }, // Minor pullback
+        { type: 'green', height: 100, upper: 10, lower: 25 },
+        { type: 'green', height: 150, upper: 15, lower: 15 }, // Strong rally
+        { type: 'green', height: 180, upper: 25, lower: 10 }, // --- Peak (will likely clamp)
+        { type: 'red',   height: 100, upper: 10, lower: 20 }, // Start of the dip
+        { type: 'red',   height: 120, upper: 15, lower: 15 },
+        { type: 'red',   height: 160, upper: 20, lower: 5  }, // --- Big Dip (will likely clamp at 0)
+        { type: 'green', height: 70,  upper: 5,  lower: 20 }, // Start recovery
+        { type: 'green', height: 90,  upper: 15, lower: 10 },
+        { type: 'red',   height: 50,  upper: 10, lower: 10 }, // Another small dip
+        { type: 'green', height: 110, upper: 20, lower: 15 }  // Second, lower rally
+      ];
+
+
+      // --- Candle Generation Loop ---
+      for (let i = 0; i < numCandles; i++) {
+        const candle = document.createElement('div');
+        const pattern = candlePattern[i % candlePattern.length];
+        
+        let openPrice = clamp(currentClosePriceY, 0, chartHeight);
+        const isGreen = pattern.type === 'green';
+        const rawHeight = pattern.height;
+        const upperWick = pattern.upper;
+        const lowerWick = pattern.lower;
+
+        let closePrice = clamp(
+          openPrice + (isGreen ? rawHeight : -rawHeight), 
+          0, 
+          chartHeight
+        );
+
+        const finalHeight = Math.max(Math.abs(closePrice - openPrice), 1);
+        const yPosition = Math.min(openPrice, closePrice);
+
+        candle.className = 'candle ' + (isGreen ? 'green' : 'red');
+        
+        const xPosition = i * unitSpace;
         candle.style.left = `${xPosition}px`;
+        candle.style.bottom = `${yPosition}px`;
+        candle.style.height = `${finalHeight}px`;
+        
+        candle.style.setProperty('--upper-wick', `${upperWick}px`);
+        candle.style.setProperty('--lower-wick', `${lowerWick}px`);
 
-        // 2. Calculate and set Vertical (Y) position
-        if (isGreen) {
-          candle.style.bottom = `${currentClosePriceY}px`;
-          currentClosePriceY = currentClosePriceY + height;
-        } else {
-          // No typo here, this logic was correct
-          candle.style.bottom = `${currentClosePriceY - height}px`; 
-          currentClosePriceY = currentClosePriceY - height;
-        }
-      });
+        const delay = i * delayPerCandle;
+        candle.style.animationDelay = `${delay / 1000}s`;
+        candle.style.animationDuration = `${delayPerCandle / 1000}s`;
+
+        chart.appendChild(candle);
+        currentClosePriceY = closePrice;
+      }
     });
   </script>
 
   <script>
+    // Cursor script (no changes)
     document.addEventListener("DOMContentLoaded", () => {
       const cursor = document.getElementById("cursor");
       document.addEventListener("mousemove", (e) => {
@@ -207,17 +243,7 @@
   <div id="cursor"></div>
   <div id="loader">
     <div class="candles">
-      <div class="candle green" style="height:40px; --upper-wick:15px; --lower-wick:10px;"></div>
-      <div class="candle green" style="height:60px; --upper-wick:10px; --lower-wick:10px;"></div>
-      <div class="candle red"   style="height:35px; --upper-wick:20px; --lower-wick:5px;"></div>
-      <div class="candle green" style="height:25px; --upper-wick:5px;  --lower-wick:35px;"></div>
-      <div class="candle green" style="height:70px; --upper-wick:10px; --lower-wick:10px;"></div>
-      <div class="candle green" style="height:80px; --upper-wick:15px; --lower-wick:15px;"></div>
-      <div class="candle red"   style="height:45px; --upper-wick:20px; --lower-wick:20px;"></div>
-      <div class="candle green" style="height:90px; --upper-wick:20px; --lower-wick:10px;"></div>
-      <div class="candle green" style="height:110px; --upper-wick:15px; --lower-wick:15px;"></div>
-      <div class="candle red"   style="height:50px; --upper-wick:25px; --lower-wick:25px;"></div>
-    </div>
+      </div>
     
     <div class="loader-bar-container">
       <div class="loader-bar-fill"></div>
