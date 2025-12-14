@@ -12,15 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700;900&display.swap" rel="stylesheet">
 </head>
 <body>
-    <div id="cursor"></div>
-    <nav class="container">
-        <a href="home.html" class="nav-logo">Archuthan Mohanathasan</a>
-        <ul>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html" class="nav-contact">Contact</a></li>
-        </ul>
-    </nav>
+    
+    <div id="navbar-placeholder"></div>
 
     <main class="container">
         <section class="contact-header">
@@ -33,10 +26,6 @@
         </section>
 
         <section>
-            <!-- 
-              This form now points to your Formspree endpoint.
-              The old FormSubmit hidden inputs have been removed.
-            -->
             <form 
               action="https://formspree.io/f/xqavkzev" 
               method="POST" 
@@ -61,35 +50,14 @@
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="6" required></textarea>
                 </div>
-                
-                <!-- 
-                  Formspree doesn't need the _next or _captcha fields,
-                  so they have been removed.
-                -->
-
                 <button type="submit" class="form-button">Send Message</button>
             </form>
         </section>
     </main>
 
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-links">
-                <a href="https://github.com/archuthanm" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/archuthan-mohanathasan-63187424b/" target="_blank">LinkedIn</a>
-                <a href="resume.pdf" target="_blank">Resume (PDF)</a>
-            </div>
-            <p>&copy; 2025 Archuthan Mohanathasan. All rights reserved.</p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
-    <script>
-        document.addEventListener("mousemove", (e) => {
-          const cursor = document.getElementById("cursor");
-          cursor.style.left = e.clientX + "px";
-          cursor.style.top = e.clientY + "px";
-        });
-    </script>
+    <script src="js/main.js" defer></script>
 
 </body>
 </html>

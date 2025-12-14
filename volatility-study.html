@@ -24,15 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="cursor"></div>
-    <nav class="container">
-        <a href="home.html" class="nav-logo">Archuthan Mohanathasan</a>
-        <ul>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html" class="nav-contact">Contact</a></li>
-        </ul>
-    </nav>
+    <div id="navbar-placeholder"></div>
 
     <main class="container">
 
@@ -92,6 +84,7 @@
                 <p>
                     The primary analysis involved visualizing the aggregated event data. The results, as shown in the chart, provide clear quantitative evidence for the 'volatility crush' phenomenon.
                 </p>
+                
                 <p>
                     The plot demonstrates a clear run-up in volatility in the ~15 days preceding the announcement, peaking on Day -1, followed by an immediate and significant drop on Day 0 and Day +1. This pattern confirms the market's behavior of "pricing in" uncertainty, which then vanishes the moment the new information becomes public.
                 </p>
@@ -106,7 +99,7 @@
                 </p>
     
                 <div class="image-viewer-container">
-                    <img src="images/placeholder-volatility-chart.png" alt="Average realized volatility around earnings announcements">
+                    <img src="images/volatility-event-study-chart.png" alt="Average realized volatility around earnings announcements">
                     <figcaption>
                         Fig 1: Average realized volatility from T-30 to T+30 days around an earnings event.
                     </figcaption>
@@ -120,24 +113,9 @@
         </section> 
     </main>
 
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-links">
-                <a href="https://github.com/archuthanm" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/archuthan-mohanathasan-63187424b/" target="_blank">LinkedIn</a>
-                <a href="resume.pdf" target="_blank">Resume (PDF)</a>
-            </div>
-            <p>&copy; 2025 Archuthan Mohanathasan. All rights reserved.</p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
-    <script>
-        document.addEventListener("mousemove", (e) => {
-          const cursor = document.getElementById("cursor");
-          cursor.style.left = e.clientX + "px";
-          cursor.style.top = e.clientY + "px";
-        });
-    </script>
+    <script src="js/main.js" defer></script>
 
 </body>
 </html>

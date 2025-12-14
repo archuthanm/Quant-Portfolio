@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Loading...</title>
 
+  <link rel="stylesheet" href="style.css">
+
   <style>
-    /* ===== Enhanced Dark Candlestick Loader ===== */
 
     body {
       background: #000;
       margin: 0;
       padding: 0;
-      cursor: none; 
+      /* cursor: none;  <-- REMOVED (now in style.css) */
       overflow: hidden; 
     }
 
@@ -102,7 +103,6 @@
       100% { opacity: 1; transform: translateY(0) scaleY(1); }
     }
 
-    /* --- Loading Bar --- */
     .loader-bar-container {
       width: 100%; 
       height: 10px;
@@ -125,26 +125,15 @@
       to   { width: 100%; }
     }
 
-    #cursor {
-      position: fixed;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(0, 255, 135, 0.7); 
-      box-shadow: 0 0 20px #00ff87, 0 0 40px #00ff87, 0 0 60px #00ff87; 
-      pointer-events: none;
-      mix-blend-mode: screen;
-      transform: translate(-50%, -50%);
-      z-index: 10000;
-    }
+    /* #cursor { ... }  <-- REMOVED (now in style.css) */
 
   </style>
 
   <script>
-    // Redirect logic (Unchanged)
+    // 2. FIXED the redirect timer to match animation
     setTimeout(() => {
       window.location.href = "home.html";
-    }, 8500); 
+    }, 7700); // 7.7s (was 8.5s)
   </script>
 
   <script>
@@ -159,35 +148,32 @@
       const chartWidth = chart.clientWidth;  
       const chartHeight = chart.clientHeight;
       
-      // --- Configuration ---
       const candleWidth = 20; 
       const candleGap = 18;   
       const unitSpace = candleWidth + candleGap;
       const numCandles = Math.floor(chartWidth / unitSpace);
-      const totalAnimationTime = 7500; // 7.5s in ms
+      const totalAnimationTime = 7500;
       const delayPerCandle = (numCandles > 0) ? (totalAnimationTime / numCandles) : 0;
       
-      let currentClosePriceY = 0; // Start at bottom
+      let currentClosePriceY = 0;
 
-      /* MODIFIED: New, more volatile pattern */
       const candlePattern = [
-        { type: 'green', height: 50,  upper: 15, lower: 10 }, // Start low
+        { type: 'green', height: 50,  upper: 15, lower: 10 },
         { type: 'green', height: 80,  upper: 10, lower: 10 },
-        { type: 'red',   height: 40,  upper: 20, lower: 5  }, // Minor pullback
+        { type: 'red',   height: 40,  upper: 20, lower: 5  },
         { type: 'green', height: 100, upper: 10, lower: 25 },
-        { type: 'green', height: 150, upper: 15, lower: 15 }, // Strong rally
-        { type: 'green', height: 180, upper: 25, lower: 10 }, // --- Peak (will likely clamp)
-        { type: 'red',   height: 100, upper: 10, lower: 20 }, // Start of the dip
+        { type: 'green', height: 150, upper: 15, lower: 15 },
+        { type: 'green', height: 180, upper: 25, lower: 10 },
+        { type: 'red',   height: 100, upper: 10, lower: 20 },
         { type: 'red',   height: 120, upper: 15, lower: 15 },
-        { type: 'red',   height: 160, upper: 20, lower: 5  }, // --- Big Dip (will likely clamp at 0)
-        { type: 'green', height: 70,  upper: 5,  lower: 20 }, // Start recovery
+        { type: 'red',   height: 160, upper: 20, lower: 5  },
+        { type: 'green', height: 70,  upper: 5,  lower: 20 },
         { type: 'green', height: 90,  upper: 15, lower: 10 },
-        { type: 'red',   height: 50,  upper: 10, lower: 10 }, // Another small dip
-        { type: 'green', height: 110, upper: 20, lower: 15 }  // Second, lower rally
+        { type: 'red',   height: 50,  upper: 10, lower: 10 },
+        { type: 'green', height: 110, upper: 20, lower: 15 }
       ];
 
 
-      // --- Candle Generation Loop ---
       for (let i = 0; i < numCandles; i++) {
         const candle = document.createElement('div');
         const pattern = candlePattern[i % candlePattern.length];
@@ -227,20 +213,9 @@
     });
   </script>
 
-  <script>
-    // Cursor script (no changes)
-    document.addEventListener("DOMContentLoaded", () => {
-      const cursor = document.getElementById("cursor");
-      document.addEventListener("mousemove", (e) => {
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
-      });
-    });
-  </script>
-</head>
+  </head>
 
 <body>
-  <div id="cursor"></div>
   <div id="loader">
     <div class="candles">
       </div>
@@ -249,5 +224,7 @@
       <div class="loader-bar-fill"></div>
     </div>
   </div>
+
+  <script src="js/main.js" defer></script>
 </body>
 </html>

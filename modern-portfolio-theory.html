@@ -24,15 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="cursor"></div>
-    <nav class="container">
-        <a href="home.html" class="nav-logo">Archuthan Mohanathasan</a>
-        <ul>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html" class="nav-contact">Contact</a></li>
-        </ul>
-    </nav>
+    <div id="navbar-placeholder"></div>
 
     <main class="container">
 
@@ -103,7 +95,10 @@
                 </p>
     
                 <div class="image-viewer-container">
-                    <img src="images/placeholder-efficient-frontier.png" alt="Efficient Frontier plot from Monte Carlo simulation">
+                    
+
+[Image of Modern Portfolio Theory Efficient Frontier]
+
                     <figcaption>
                         Fig 1: Efficient Frontier for a 10-stock portfolio.
                     </figcaption>
@@ -117,24 +112,9 @@
         </section> 
     </main>
 
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-links">
-                <a href="https://github.com/archuthanm" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/archuthan-mohanathasan-63187424b/" target="_blank">LinkedIn</a>
-                <a href="resume.pdf" target="_blank">Resume (PDF)</a>
-            </div>
-            <p>&copy; 2025 Archuthan Mohanathasan. All rights reserved.</p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
-    <script>
-        document.addEventListener("mousemove", (e) => {
-          const cursor = document.getElementById("cursor");
-          cursor.style.left = e.clientX + "px";
-          cursor.style.top = e.clientY + "px";
-        });
-    </script>
+    <script src="js/main.js" defer></script>
 
 </body>
 </html>

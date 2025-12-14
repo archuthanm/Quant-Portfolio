@@ -1,3 +1,27 @@
+/*
+==================================================
+  TABLE OF CONTENTS
+==================================================
+  1.  GLOBAL & ROOT VARIABLES
+  2.  BASE & RESET STYLES (inc. Sticky Footer)
+  3.  UTILITY CLASSES (e.g. .container)
+  4.  REUSABLE COMPONENTS
+      - Navigation
+      - Footer
+      - Buttons & Links
+      - Cards (Projects, Skills, Aspirations)
+  5.  PAGE-SPECIFIC LAYOUTS
+      - Hero Section (Home)
+      - Homepage Sections (Skills, Aspirations)
+      - Project Page (Header, Summary, Body, Split-Layout)
+      - About Page
+      - Contact Page
+  6.  GLOBAL MODULES
+      - Custom Cursor
+  7.  RESPONSIVE STYLES (All Media Queries)
+==================================================
+*/
+
 /* --- 1. GLOBAL & ROOT VARIABLES --- */
 :root {
     /* Colors */
@@ -29,17 +53,17 @@ body {
     color: var(--text-primary);
     font-family: var(--font-primary);
     line-height: 1.6;
+    cursor: none;
+    
+    /* Sticky Footer Fix: */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/*
- * THIS IS THE FIX:
- * The 'display: flex' properties were removed from this general .container rule.
- * This rule should ONLY control sizing and spacing, not layout.
-*/
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2 3rem;
+/* Sticky Footer Fix: Tells <main> to take all available space */
+main {
+    flex-grow: 1;
 }
 
 a {
@@ -63,8 +87,26 @@ p {
     color: var(--text-secondary);
 }
 
-/* --- 3. NAVIGATION --- */
-/* This rule correctly applies flex layout to ONLY the nav */
+hr {
+    border: none;
+    height: 1px;
+    background-color: var(--surface-border);
+}
+
+/* --- 3. UTILITY CLASSES --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5 2rem; /* Corrected padding shorthand */
+}
+
+.center-text {
+    text-align: center;
+}
+
+/* --- 4. REUSABLE COMPONENTS --- */
+
+/* --- Navigation --- */
 nav {
     display: flex;
     justify-content: space-between;
@@ -72,6 +114,7 @@ nav {
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
+
 
 .nav-logo {
     font-size: 1.5rem;
@@ -86,8 +129,8 @@ nav ul {
     display: flex;
     list-style: none;
     align-items: center;
-    margin-left: auto; /* <-- ADD THIS LINE */
-    padding-right: 3px
+    margin-left: auto;
+    padding-right: 3px;
 }
 
 nav ul li {
@@ -99,48 +142,38 @@ nav ul li a {
     font-weight: 500;
 }
 
-nav ul li a.nav-contact {
-    background-color: var(--accent);
-    color: var(--background);
-    padding: 0.5rem 2rem;
-    border-radius: 5px;
-    font-weight: 700;
-}
-nav ul li a.nav-contact:hover {
-    background-color: var(--accent-dark);
-    color: var(--background);
-}
-
-
-
-/* --- 4. HERO SECTION --- */
-.hero {
-    min-height: 60vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+/* --- Footer --- */
+footer {
     padding-top: 3rem;
-    padding-bottom: 5rem;
+    padding-bottom: 3rem;
+    border-top: 1px solid var(--surface-border);
+    margin-top: 4rem;
 }
 
-.hero h1 {
-    font-size: 3.5rem; /* Large, bold intro */
-    font-weight: 900;
-    margin-bottom: 1.5rem;
-    max-width: 800px;
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-.hero .accent {
+.footer-links a {
+    color: var(--text-secondary);
+    margin-right: 1.5rem;
+    font-weight: 500;
+}
+.footer-links a:hover {
     color: var(--accent);
 }
 
-.hero-subhead {
-    font-size: 1.25rem;
+footer p {
     color: var(--text-secondary);
-    max-width: 650px;
-    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    margin: 0;
 }
 
+/* --- Buttons & Links --- */
 .cta-button {
     display: inline-block;
     background: var(--accent);
@@ -158,34 +191,56 @@ nav ul li a.nav-contact:hover {
     transform: translateY(-3px); /* Subtle lift effect */
 }
 
-
-/* --- 5. PROJECTS SECTION --- */
-#projects {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-}
-
-#projects h2 {
-    font-size: 2.5rem;
+.form-button {
+    /* Re-using styles from .cta-button but making it 100% width */
+    display: block;
+    width: 100%;
+    background: var(--accent);
+    color: var(--background);
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
     text-align: center;
-    margin-bottom: 3rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+.form-button:hover {
+    background: var(--accent-dark);
+    color: var(--background);
+    transform: translateY(-3px);
 }
 
-.project-card {
+nav ul li a.nav-contact {
+    background-color: var(--accent);
+    color: var(--background);
+    padding: 0.5rem 2rem;
+    border-radius: 5px;
+    font-weight: 700;
+}
+nav ul li a.nav-contact:hover {
+    background-color: var(--accent-dark);
+    color: var(--background);
+}
+
+/* --- Cards --- */
+.project-card,
+.aspiration-card,
+.skill-category,
+.skills-list li {
     background-color: var(--surface);
     border: 1px solid var(--surface-border);
-    padding: 2rem;
+    padding: 1.5rem 2rem;
     border-radius: 8px;
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
-.project-card:hover {
+.project-card:hover,
+.aspiration-card:hover,
+.skill-category:hover,
+.skills-list li:hover {
     transform: translateY(-5px);
     border-color: var(--accent);
 }
@@ -213,127 +268,128 @@ nav ul li a.nav-contact:hover {
     font-size: 1rem;
 }
 
-/* --- 6. FOOTER --- */
-footer {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    border-top: 1px solid var(--surface-border);
-    margin-top: 4rem;
+.aspiration-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
 }
 
-/* This rule correctly applies flex layout to ONLY the footer content */
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.footer-links a {
+.aspiration-card p {
+    font-size: 1.05rem;
     color: var(--text-secondary);
-    margin-right: 1.5rem;
-    font-weight: 500;
+    line-height: 1.6;
 }
-.footer-links a:hover {
+
+.skill-category h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent);
+    border-bottom: 1px solid var(--surface-border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.skill-category ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.skill-category li {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+
+/* --- 5. PAGE-SPECIFIC LAYOUTS --- */
+
+/* --- Hero Section (Home) --- */
+.hero {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+}
+
+.hero .accent {
     color: var(--accent);
 }
 
-footer p {
+.hero-subhead {
+    font-size: 1.25rem;
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin: 0;
+    max-width: 650px;
+    margin-bottom: 2rem;
 }
 
-/* --- 7. CONTACT PAGE STYLES --- */
-.contact-header {
-    text-align: center;
+/* --- Homepage Sections (Projects, Skills, Aspirations) --- */
+#projects {
     padding-top: 4rem;
-    padding-bottom: 3rem;
+    padding-bottom: 4rem;
 }
 
-.contact-header h1 {
-    font-size: 3rem;
+#projects h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.skills-section {
+    padding: 4rem 0;
+    border-top: 1px solid var(--surface-border);
+    border-bottom: 1px solid var(--surface-border);
+}
+
+.skills-section h2,
+.aspirations-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
     font-weight: 900;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
 }
 
-.contact-header p {
-    font-size: 1.125rem;
+.skills-subhead {
+    text-align: center;
+    font-size: 1.1rem;
     color: var(--text-secondary);
-    max-width: 600px;
+    margin-bottom: 3rem;
+    max-width: 500px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.contact-form {
-    max-width: 700px; /* Limits the width of the form */
-    margin: 0 auto 6rem auto; /* Centers the form */
+.skills-grid,
+.aspirations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    font-size: 0.9rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    font-size: 1rem;
-    font-family: var(--font-primary);
-    
-    background-color: var(--surface);
-    color: var(--text-primary);
-    
-    border: 1px solid var(--surface-border);
-    border-radius: 5px;
-    
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--accent); /* Highlights with accent color */
-}
-
-.form-group textarea {
-    resize: vertical; /* Allows user to resize height */
-    min-height: 120px;
-}
-
-.form-button {
-    /* Re-using styles from .cta-button but making it 100% width */
-    display: block;
-    width: 100%;
-    background: var(--accent);
-    color: var(--background);
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    font-weight: 700;
-    border-radius: 5px;
-    border: none; /* Buttons have borders by default */
-    cursor: pointer;
-    text-align: center;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.form-button:hover {
-    background: var(--accent-dark);
-    color: var(--background);
-    transform: translateY(-3px);
+.aspirations-section {
+    padding: 4rem 0;
+    background-color: var(--background);
 }
 
 
-/* --- 8. PROJECT PAGE STYLES --- */
-
+/* --- Project Page --- */
 .project-page-header {
     text-align: center;
     padding-top: 4rem;
@@ -350,21 +406,21 @@ footer p {
     background-color: var(--surface);
     border: 1px solid var(--surface-border);
     border-radius: 8px;
-    max-width: 900px; /* Widen slightly for 3 columns */
+    max-width: 900px;
     margin: 0 auto 3rem auto;
     padding: 2rem;
 }
 
 .project-summary ul {
     list-style: none;
-    display: grid; /* Use Grid instead of Flex */
-    grid-template-columns: 1fr 1fr 1fr; /* Create 3 equal columns */
-    gap: 2rem; /* Space between columns */
-    text-align: left; /* Align text left */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    text-align: left;
 }
 
 .project-summary li {
-    font-size: 1rem; /* Slightly smaller for balance */
+    font-size: 1rem;
     color: var(--text-primary);
     line-height: 1.4;
 }
@@ -374,9 +430,14 @@ footer p {
     font-size: 0.9rem;
     font-weight: 700;
     color: var(--text-secondary);
-    margin-bottom: 0.5rem; /* More space */
+    margin-bottom: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+.project-divider {
+    max-width: 900px;
+    margin: 0 auto 3rem auto;
 }
 
 .project-body {
@@ -413,18 +474,20 @@ footer p {
     margin-bottom: 0.5rem;
 }
 
-/* PDF Viewer Styles */
+.project-body hr {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
 .pdf-viewer-container {
     position: relative;
     width: 100%;
-    /* A4-ish aspect ratio (210 / 297 = 0.707) */
-    /* 1 / 0.707 = 1.414. So padding-bottom is 141.4% */
-    padding-bottom: 141.4%;
+    padding-bottom: 141.4%; /* A4-ish aspect ratio */
     height: 0;
     overflow: hidden;
     border: 1px solid var(--surface-border);
     border-radius: 5px;
-    background: #fff; /* White background for the PDF */
+    background: #fff;
 }
 
 .pdf-viewer-container iframe {
@@ -436,60 +499,50 @@ footer p {
     border: none;
 }
 
-/* Utility Class */
-.center-text {
-    text-align: center;
+/* Project Page Split Layout */
+.project-body.project-layout-split {
+    max-width: 1200px; /* Wider container for two columns */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 3rem;
 }
 
-
-/* --- 9. NEW LAYOUT STYLES --- */
-
-/* Styles the new <hr> we added */
-.project-divider {
-    max-width: 900px;
-    margin: 0 auto 3rem auto;
-    border: none;
-    height: 1px;
-    background-color: var(--surface-border);
+.project-text-content {
+    max-width: 75ch; /* Ideal reading width */
 }
 
-/* Styles the <hr> inside the project body */
-.project-body hr {
-    border: none;
-    height: 1px;
-    background-color: var(--surface-border);
-    margin-top: 3rem;
-    margin-bottom: 2rem;
+.project-sidebar {
+    padding-top: 0.5rem;
 }
 
-/* --- 9. ABOUT PAGE STYLES --- */
-
+/* --- About Page --- */
 .about-layout {
     display: flex;
-    flex-wrap: wrap; /* Allows columns to stack on mobile */
-    gap: 4rem; /* Space between image and text */
-    max-width: 1000px; /* Slightly wider for a good text column */
+    flex-wrap: wrap;
+    gap: 4rem;
+    max-width: 1000px;
     margin: 0 auto 6rem auto;
-    align-items: flex-start; /* Aligns top of text with top of image */
+    align-items: flex-start;
 }
 
 .about-image-container {
-    flex: 1; /* Takes up 1 part of the space */
-    min-width: 250px; /* Ensures image doesn't get too squished */
-    max-width: 350px; /* Prevents image from being too large */
-    margin: 0 auto; /* Centers on mobile */
+    flex: 1;
+    min-width: 250px;
+    max-width: 350px;
+    margin: 0 auto;
 }
 
 .about-profile-pic {
     width: 100%;
     height: auto;
-    border-radius: 8px; /* Matches your card style */
+    border-radius: 8px;
     border: 1px solid var(--surface-border);
 }
 
 .about-text-container {
-    flex: 2; /* Takes up 2 parts of the space (wider) */
-    min-width: 300px; /* Ensures text has room to flow */
+    flex: 2;
+    min-width: 300px;
 }
 
 .about-text-container h2 {
@@ -502,7 +555,7 @@ footer p {
 .about-subhead {
     font-size: 1.25rem;
     font-weight: 500;
-    color: var(--accent); /* Use accent color for the subtitle */
+    color: var(--accent);
     line-height: 1.5;
     margin-bottom: 2rem;
 }
@@ -524,323 +577,143 @@ footer p {
 }
 
 .skills-list {
-    list-style: none; /* Remove default bullets */
+    list-style: none;
     padding-left: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two-column grid for skills */
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
     font-size: 1.05rem;
 }
 
 .skills-list li {
     padding: 0.75rem 1rem;
-
-    background-color: var(--surface); 
-    border: 1px solid var(--surface-border);
-    border-radius: 8px;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.skills-list li:hover {
-    transform: translateY(-5px); 
-    border-color: var(--accent); 
+    /* Other styles inherited from .card */
 }
 
 .skills-list li strong {
     color: var(--text-primary);
 }
 
-/* --- 10. RESPONSIVE STYLES --- */
-
-/* For the new skills list */
-@media (max-width: 600px) {
-    .skills-list {
-        grid-template-columns: 1fr; /* Stack skills on small screens */
-    }
-}
-
-
-/* --- 10. NEW PROJECT PAGE SPLIT LAYOUT --- */
-
-/* 1. We override the old .project-body max-width 
-     to make the layout wider.
-*/
-.project-body.project-layout-split {
-    max-width: 1200px; /* Wider container for two columns */
-    display: grid;
-    /* Columns: 2 parts for text, 1 part for sidebar */
-    grid-template-columns: 1fr 1fr; 
-    align-items: start; /* Aligns columns to the top */
-    gap: 3rem; /* Space between the two columns */
-}
-
-/* 2. We give the text column its *own* max-width
-     to maintain readability.
-*/
-.project-text-content {
-    max-width: 75ch; /* 75 characters is ideal for reading */
-}
-
-/* 3. The sidebar just needs a little top padding 
-     to align the headings.
-*/
-.project-sidebar {
-    padding-top: 0.5rem;
-    /* On large screens, a "sticky" position is nice,
-       but let's keep it simple for now. */
-}
-
-/* 4. On mobile, we stack the columns back into one,
-     restoring the original (good) mobile layout.
-*/
-@media (max-width: 900px) {
-    .project-body.project-layout-split {
-        grid-template-columns: 1fr; /* Stack the columns */
-    }
-
-    .project-sidebar {
-        padding-top: 0;
-    }
-}
-
-/* --- 11. SKILLS TOOLKIT SECTION --- */
-.skills-section {
-    padding: 4rem 0;
-    /* FIX: I've removed the 'background-color: var(--surface);' line 
-      that was creating the grey box.
-    */
-    border-top: 1px solid var(--surface-border);
-    border-bottom: 1px solid var(--surface-border);
-}
-
-.skills-section h2 {
+/* --- Contact Page --- */
+.contact-header {
     text-align: center;
-    font-size: 2.5rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+}
+
+.contact-header h1 {
+    font-size: 3rem;
     font-weight: 900;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
 }
 
-.skills-subhead {
-    text-align: center;
-    font-size: 1.1rem;
+.contact-header p {
+    font-size: 1.125rem;
     color: var(--text-secondary);
-    margin-bottom: 3rem;
-    max-width: 500px;
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.skills-grid {
-    display: grid;
-    /* Create 3 equal columns on desktop */
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2rem;
+.contact-form {
+    max-width: 700px;
+    margin: 0 auto 6rem auto;
 }
 
-.skill-category {
-    /* FIX: I've changed this from --background to --surface
-      to make the cards lighter than the page background.
-    */
-    background-color: var(--surface); 
-    border: 1px solid var(--surface-border);
-    padding: 1.5rem 2rem;
-    border-radius: 8px;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+.form-group {
+    margin-bottom: 1.5rem;
 }
 
-.skill-category:hover {
-    transform: translateY(-5px); 
-    border-color: var(--accent); 
-}
-
-.skill-category h3 {
-    font-size: 1.25rem;
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
     font-weight: 700;
-    color: var(--accent); /* Use accent color for category titles */
-    border-bottom: 1px solid var(--surface-border);
-    padding-bottom: 0.75rem;
-    margin-bottom: 1rem;
-}
-
-.skill-category ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.skill-category li {
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
     margin-bottom: 0.5rem;
-}
-
-/* Make skills stack on mobile */
-@media (max-width: 800px) {
-    .skills-grid {
-        grid-template-columns: 1fr 1fr; /* 2 columns on tablet */
-    }
-}
-
-@media (max-width: 600px) {
-    .skills-grid {
-        grid-template-columns: 1fr; /* 1 column on mobile */
-    }
-}
-
-
-/* --- 12. ASPIRATIONS SECTION --- */
-.aspirations-section {
-    padding: 4rem 0;
-    /* This assumes your "Toolkit" section was --surface */
-    background-color: var(--background); 
-}
-
-.aspirations-section h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 900;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
 }
 
-.aspirations-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2rem;
-}
-
-.aspiration-card {
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    font-family: var(--font-primary);
     background-color: var(--surface);
+    color: var(--text-primary);
     border: 1px solid var(--surface-border);
-    padding: 1.5rem 2rem;
-    border-radius: 8px;
-    
-    /* THIS IS THE CHANGE:
-      Added 'border-color' to the transition.
-    */
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
 }
 
-.aspiration-card:hover {
-    transform: translateY(-5px);
-    /* THIS IS THE CHANGE:
-      Added 'border-color' hover effect.
-    */
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
     border-color: var(--accent);
 }
 
-.aspiration-card h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-}
-
-.aspiration-card p {
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-
-/* Responsive (Mobile) Layout */
-@media (max-width: 900px) {
-    .aspirations-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (max-width: 600px) {
-    .aspirations-grid {
-        grid-template-columns: 1fr;
-    }
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
 }
 
 
+/* --- 6. GLOBAL MODULES --- */
 
-
-/* --- 13. STICKY FOOTER LAYOUT --- */
-/* This code is correct and fixes the floating footer */
-
-/* 1. Make the body a flex container */
-body {
-    display: flex;
-    flex-direction: column; /* Stack nav, main, and footer */
-    min-height: 100vh; /* Be at least the full screen height */
-}
-
-/* 2. Tell the main content to "grow" */
-main {
-    /* This is the magic line: */
-    /* It tells <main> to take up all available 
-       empty space, pushing the footer down. */
-    flex-grow: 1;
-}
-
-
-
-/* ========== LOADING SCREEN ========== */
-
-#loader {
-    position: fixed;
-    inset: 0;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  
-  .spinner {
-    width: 60px;
-    height: 60px;
-    border: 6px solid #ccc;
-    border-top-color: #333;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-
-/* ===== Candlestick Loader ===== */
-
-#loader {
-    position: fixed;
-    inset: 0;
-    background: #000;
-    
-    /* --- THIS IS THE FIX --- */
-    /* Use flexbox to control the layout */
-    display: flex;
-    
-    /* Stack children vertically (candles on top, text on bottom) */
-    flex-direction: column; 
-    
-    /* Center vertically */
-    justify-content: center; 
-    
-    /* Center horizontally */
-    align-items: center; 
-    
-    /* Tighter grouping (I reduced this from 35px) */
-    gap: 25px; 
-    
-    z-index: 9999;
-}
-
-/* === Custom Neon Cursor === */
+/* --- Custom Neon Cursor --- */
 #cursor {
     position: fixed;
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: rgba(0, 255, 135, 0.7); /* brighter fill */
-    box-shadow: 0 0 20px #00ff87, 0 0 40px #00ff87, 0 0 60px #00ff87; /* stronger glow */
+    background: rgba(0, 255, 135, 0.7); 
+    box-shadow: 0 0 20px #00ff87, 0 0 40px #00ff87, 0 0 60px #00ff87; 
     pointer-events: none;
     mix-blend-mode: screen;
     transform: translate(-50%, -50%);
     z-index: 10000;
+}
+
+
+/* --- 7. RESPONSIVE STYLES --- */
+
+/* --- 900px Breakpoint (Tablets) --- */
+@media (max-width: 900px) {
+    /* Stack project page split layout */
+    .project-body.project-layout-split {
+        grid-template-columns: 1fr;
+    }
+
+    .project-sidebar {
+        padding-top: 0;
+    }
+
+    /* 2-col grid for aspirations */
+    .aspirations-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* --- 800px Breakpoint (Smaller Tablets) --- */
+@media (max-width: 800px) {
+    /* 2-col grid for skills */
+    .skills-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* --- 600px Breakpoint (Mobile) --- */
+@media (max-width: 600px) {
+    /* Stack skills list on about page */
+    .skills-list {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stack homepage skills */
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stack homepage aspirations */
+    .aspirations-grid {
+        grid-template-columns: 1fr;
+    }
 }

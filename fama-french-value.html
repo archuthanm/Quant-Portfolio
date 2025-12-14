@@ -21,18 +21,11 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700;900&display.swap" rel="stylesheet">
 </head>
 <body>
-    <div id="cursor"></div>
-    <nav class="container">
-        <a href="home.html" class="nav-logo">Archuthan Mohanathasan</a>
-        <ul>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html" class="nav-contact">Contact</a></li>
-        </ul>
-    </nav>
+    
+    <div id="navbar-placeholder"></div>
 
     <main class="container">
 
@@ -74,6 +67,7 @@
                 </p>
     
                 <h2>2. Methodology: Portfolio Construction</h2>
+                
                 <p>
                     The HML factor was constructed using the S&P 500 as the stock universe. The core methodology involved an annual portfolio rebalancing based on the <strong>Book-to-Market (B/M) ratio</strong>, the classic metric for "value".
                 </p>
@@ -119,24 +113,9 @@
         </section> 
     </main>
 
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-links">
-                <a href="https://github.com/archuthanm" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/archuthan-mohanathasan-63187424b/" target="_blank">LinkedIn</a>
-                <a href="resume.pdf" target="_blank">Resume (PDF)</a>
-            </div>
-            <p>&copy; 2025 Archuthan Mohanathasan. All rights reserved.</p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
-    <script>
-        document.addEventListener("mousemove", (e) => {
-          const cursor = document.getElementById("cursor");
-          cursor.style.left = e.clientX + "px";
-          cursor.style.top = e.clientY + "px";
-        });
-    </script>
+    <script src="js/main.js" defer></script>
 
 </body>
 </html>

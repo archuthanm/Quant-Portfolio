@@ -9,18 +9,11 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700;900&display.swap" rel="stylesheet">
 </head>
 <body>
-    <div id="cursor"></div>
-    <nav class="container">
-        <a href="home.html" class="nav-logo">Archuthan Mohanathasan</a>
-        <ul>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html" class="nav-contact">Contact</a></li>
-        </ul>
-    </nav>
+    
+    <div id="navbar-placeholder"></div>
 
     <header class="hero container">
         <h1 id="my-typewriter-h1"></h1>
@@ -34,7 +27,6 @@
 
     <main class="container">
         
-
         <section class="aspirations-section">
             <div class="container">
                 <h2>Research & Aspirations</h2>
@@ -118,57 +110,14 @@
             </div>
         </section>
 
-        
     </main>
 
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-links">
-                <a href="https://github.com/archuthanm" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/archuthan-mohanathasan-63187424b/" target="_blank">LinkedIn</a>
-                <a href="resume.pdf" target="_blank">Resume (PDF)</a>
-            </div>
-            <p>&copy; 2025 Archuthan Mohanathasan. All rights reserved.</p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
-    <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+    
 
-    <script>
-        
-        // Your original cursor code
-        document.addEventListener("mousemove", (e) => {
-          const cursor = document.getElementById("cursor");
-          cursor.style.left = e.clientX + "px";
-          cursor.style.top = e.clientY + "px";
-        });
+    <script src="js/main.js" defer></script>
 
-        // The new TypeIt code
-        document.addEventListener('DOMContentLoaded', function () {
-            new TypeIt("#my-typewriter-h1", {
-                strings: [
-                  'From <span class="accent">CS theory</span> to <span class="accent">market models.</span>'
-                ],
-                speed: 75,
-                waitUntilVisible: true,
-                cursorChar: "|", // The blinking character
-                cursor: {
-                  // Makes the cursor blink orange
-                  animation: {
-                    frames: [
-                      { value: "transparent" },
-                      { value: "orange" },
-                      { value: "transparent" }
-                    ],
-                    options: {
-                      duration: 750,
-                      iterations: Infinity
-                    }
-                  }
-                }
-            }).go(); // Tells it to start
-        });
-
-    </script>
+    
 </body>
 </html>
